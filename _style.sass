@@ -1,0 +1,126 @@
+*
+  font-family: 'Poppins', sans-serif
+  // border: 1px solid gray
+
+@mixin abpos($l:initial,$t:initial)
+  position: absolute
+  left: $l
+  top: $t
+  
+$colorYellow: #ffb703
+$colorBlue: #8ecae6
+$colorOrange: #e85d04
+
+@mixin size($w,$h:$w)
+  width:$w
+  height: $h
+
+@mixin flexCenter
+  display: flex
+  justify-content: center
+  align-items: center
+  
+html,body
+  margin: 0
+  padding: 0
+  +size(100%)
+  background-color: $colorYellow
+  +flexCenter
+  color: #fff
+  
+.monster
+  +size(110px)
+  background-color: $colorOrange
+  border-radius: 20px
+  +flexCenter
+  flex-direction: column
+  cursor: pointer
+  margin: 10px
+  position: relative
+  transition: 0.5s
+  box-shadow: 0px 10px 20px rgba(black,0.2)
+  animation: jumping 0.5s infinite alternate
+  @keyframes jumping
+    50% 
+      top: 0
+      box-shadow: 0px 10px 20px rgba(black,0.2)
+    100%
+      top: -50px 
+      box-shadow: 0px 120px 50px rgba(black,0.1)
+    
+  .eye
+    +size(40%)
+    border-radius: 50%
+    background-color: #fff
+    +flexCenter
+    
+    .eyeball
+      +size(50%)
+      border-radius: 50%
+      background-color: $colorBlue
+      animation: eyemove 1.6s infinite alternate
+      @keyframes eyemove
+        0%,10%
+          transform: translate(50%)
+        90%,100%
+          transform: translate(-50%)
+      
+  .mouth
+    +size(32%,12px)
+    background-color: #fff
+    border-radius: 12px
+    margin-top: 15%
+    
+  &:before,&:after
+    content: ""
+    display: block
+    +size(20%,10px)
+    background-color: #fff
+    position: absolute
+    left: 50%
+    top: -10px
+    border-radius: 10px
+  
+  &:before
+    transform: translateX(-70%)rotate(45deg)
+  &:after
+    transform: translateX(-30%)rotate(-45deg)
+  
+  &.blue
+    background-color: $colorBlue
+    .mouth,.eyeball
+      background-color: $colorOrange
+      
+h2 
+  font-size: 40px 
+  margin-right: 50px 
+  font-weight: 800
+h3
+  margin-right: 50px 
+  margin-top: 0 
+  opacity: 0.5
+
+.pageLoading
+  position: fixed
+  +size(100%)
+  background-color: $colorBlue
+  left: 0 
+  top: 0 
+  +flexCenter
+  flex-direction: column
+  transition: 0.5s 0.5s
+  &.complete
+    opacity: 0
+    .monster
+      transform: scale(0.01)rotate(360deg)
+    
+.loading 
+  +size(200px,8px)
+  background-color: #fff
+  margin-top: 80px
+  border-radius: 5px
+  overflow: hidden
+  .bar
+    background-color: $colorOrange
+    +size(50%,100%)
+  
